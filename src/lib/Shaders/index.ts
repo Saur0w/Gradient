@@ -1,9 +1,10 @@
 export const vertexShader = `
   uniform float uTime;
   uniform vec2  uMouse;
+  uniform float uMouseStrength;
 
   varying vec3 vNormal;
-  
+
   vec3 mod289(vec3 x){ return x - floor(x*(1./289.))*289.; }
   vec4 mod289(vec4 x){ return x - floor(x*(1./289.))*289.; }
   vec4 permute(vec4 x){ return mod289(((x*34.)+1.)*x); }
@@ -54,16 +55,23 @@ export const vertexShader = `
 
   void main() {
     vNormal = normal;
-    float n   = snoise(normal * 1.5 + uTime * 0.4);
-    float mx  = dot(normal.xy, uMouse) * 0.25;
-    vec3  pos = position + normal * (n * 0.35 + mx);
+    
+    float n = snoise(normal * 1.2 + uTime * 0.35);
+    
+    vec2  mDir    = uMouse * 2.0;
+    float mDot    = dot(normal.xy, normalize(mDir + 0.001));
+    float mBulge  = smoothstep(0.0, 1.0, mDot) * length(uMouse) * uMouseStrength;
+
+    float displacement = n * 0.4 + mBulge;
+    vec3  pos = position + normal * displacement;
+
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
   }
 `;
 
 export const fragmentShader = `
-  uniform vec3 uColor;
-  varying vec3 vNormal;
+  uniform vec3  uColor;
+  varying vec3  vNormal;
 
   void main() {
     float light = dot(normalize(vNormal), normalize(vec3(1., 1., 0.5))) * 0.4 + 0.6;
