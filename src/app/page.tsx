@@ -1,7 +1,8 @@
 "use client";
 
 import styles from "./page.module.css";
-import Landing from "@/components/Landing";
+import dynamic from "next/dynamic";
+const Landing = dynamic(() => import("@/components/Landing"), { ssr: false });
 
 export default function Home() {
   return (
