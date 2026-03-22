@@ -6,12 +6,12 @@ import {useMemo, useRef} from "react";
 import * as THREE from "three";
 
 const BLOBS = [
-    { position: [-5.5,  3.0, -2.0] as const, color: "#ff5500", scale: 2.6, speed: 0.9  },
-    { position: [ 5.0, -2.5, -1.5] as const, color: "#4400ff", scale: 2.8, speed: 0.65 },
-    { position: [-3.0, -4.0,  0.0] as const, color: "#00e5ff", scale: 2.2, speed: 1.2  },
-    { position: [ 4.5,  4.0, -3.0] as const, color: "#ff0080", scale: 2.0, speed: 1.0  },
-    { position: [ 0.0,  0.5, -4.0] as const, color: "#ffcc00", scale: 1.8, speed: 0.75 },
-];
+    { position: [-3.2,  1.0, -1.0] as const, color: '#f4d8ca', scale: 5.9, speed: .3},
+    { position: [ 2.0, -0.8, -0.5] as const, color: '#536ae6', scale: 3.1, speed: 0.7 },
+    { position: [ 0.2,  1.8, -2.0] as const, color: '#20e8c0', scale: 2.5, speed: .3 },
+    { position: [-1.0, -2.0,  0.5] as const, color: '#ff30a0', scale: 1.7, speed: 0.9 },
+    { position: [ 2.5,  1.5, -1.5] as const, color: '#eac25a', scale: 4.3, speed: .5 },
+]
 
 function Blob({ position, color, scale, speed }: typeof BLOBS[number]) {
     const meshRef = useRef<THREE.Mesh>(null);

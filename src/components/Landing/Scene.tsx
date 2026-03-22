@@ -1,17 +1,23 @@
 "use client";
-
 import { Canvas } from "@react-three/fiber";
-import { EffectComposer, TiltShift2 } from '@react-three/postprocessing'
-import { KernelSize } from 'postprocessing';
-import Meshes from "./Mesh";
+import MeshGroup from "./Mesh";
 
 export default function Scene() {
     return (
-        <Canvas>
-            <Meshes />
-            <EffectComposer>
-                <TiltShift2 kernelSize={KernelSize.SMALL} />
-            </EffectComposer>
-        </Canvas>
+        <div style={{
+            position: "absolute",
+            inset: 0,
+            filter: "blur(80px) saturate(1.6) brightness(1.05)",
+            transform: "scale(1.12)",
+            zIndex: 0,
+        }}>
+            <Canvas
+                camera={{ position: [0, 0, 10], fov: 60 }}
+                dpr={[1, 1.5]}
+                gl={{ antialias: false }}
+            >
+                <MeshGroup />
+            </Canvas>
+        </div>
     );
 }
