@@ -7,7 +7,7 @@ export default function Scene() {
         <div style={{
             position: "absolute",
             inset: 0,
-            filter: "blur(80px) saturate(1.6) brightness(1.05)",
+            filter: "blur(40px) saturate(1.6) brightness(1.05)",
             transform: "scale(1.12)",
             zIndex: 0,
         }}>

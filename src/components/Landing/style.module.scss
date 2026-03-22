@@ -6,7 +6,7 @@
   height: 100svh;
   overflow: hidden;
   background: #f7f7f7;
-
+  pointer-events: none;
   > canvas,
   > div:first-child {
     position: absolute !important;
