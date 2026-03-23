@@ -1,14 +1,17 @@
 export const vertexShader = `
-  
   void main() {
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    gl_Position = vec4(position, 1.0);
   }
 `;
 
 export const fragmentShader = `
-  uniform vec3  uColor;
- 
+  uniform vec2 uResolution;
+  uniform vec3 uColorA;
+  uniform vec3 uColorB;
+
   void main() {
-      gl_FragColor  = vec4(color, 1.0);
+    vec2 uv = gl_FragCoord.xy / uResolution;
+    vec3 color = mix(uColorA, uColorB, uv.y);
+    gl_FragColor = vec4(color, 1.0);
   }
 `;
