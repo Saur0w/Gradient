@@ -1,10 +1,9 @@
-// Landing.tsx
 "use client";
 import { useEffect, useRef } from "react";
 import styles from "./style.module.scss";
 import Scene from "./Scene";
 import gsap from "gsap";
-import SplitText from "gsap/SplitText";
+import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(SplitText);
 
