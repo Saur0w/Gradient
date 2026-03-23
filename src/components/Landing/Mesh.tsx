@@ -8,8 +8,8 @@ export default function Mesh() {
     const { size } = useThree();
     const uniforms = useMemo(() => ({
         uResolution: { value: [size.width, size.height] },
-        uColorA: { value: [0.1, 0.0, 0.3] },
-        uColorB: { value: [1.0, 0.4, 0.0] },
+        uColorA: { value: [1.0, 0.9, 0.88] },
+        uColorB: { value: [0.96, 0.6, 0.7] },
     }), [size]);
     return (
         <group>
