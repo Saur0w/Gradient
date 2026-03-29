@@ -8,8 +8,9 @@ export default function Header() {
         <header className={styles.header}>
             <div className={styles.logo}>Saurow</div>
             <nav className={styles.nav}>
-                <div className={styles.about}><p>About</p></div>
-                <Link href="/contact">Contact</Link>
+                <Link href="/">Work</Link>
+                <Link href="/">About</Link>
+                <Link href="/">Contact</Link>
             </nav>
         </header>
     );
