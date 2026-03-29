@@ -1,42 +1,48 @@
 "use client";
 
+import { useMemo, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { vertexShader, fragmentShader } from "@/lib/Shaders";
 import * as THREE from "three";
-import { useMemo } from "react";
 
 export default function Mesh() {
     const { size } = useThree();
 
     const uniforms = useMemo(() => ({
-        uTime: { value: 0 },
-        uResolution: { value: new THREE.Vector2(size.width, size.height)},
-        uMouse: { value: new THREE.Vector2(0, 0)},
-        uColorA: { value: new THREE.Vector3(1.0, 0.9, 0.88) },
-        uColorB: { value: new THREE.Vector3(0.96, 0.6, 0.7) },
+        uTime:       { value: 0 },
+        uResolution: { value: new THREE.Vector2(size.width, size.height) },
+        uMouse:      { value: new THREE.Vector2(0, 0) },
     }), []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const mouseTarget = useMemo(() => new THREE.Vector2(0, 0), []);
+
+    useEffect(() => {
+        const onMove = (e: MouseEvent) => {
+            mouseTarget.set(
+                (e.clientX / window.innerWidth)  *  2 - 1,
+                -(e.clientY / window.innerHeight) *  2 + 1,
+            );
+        };
+        window.addEventListener("mousemove", onMove);
+        return () => window.removeEventListener("mousemove", onMove);
+    }, [mouseTarget]);
 
     useFrame(({ clock, size: s }) => {
         //eslint-disable-next-line
         uniforms.uTime.value = clock.getElapsedTime();
         uniforms.uResolution.value.set(s.width, s.height);
+        uniforms.uMouse.value.lerp(mouseTarget, 0.04);
     });
 
-    const handleMouseMove = (e: THREE.Event) => {
-        const { clientX, clientY } = e as unknown as PointerEvent;
-        uniforms.uMouse.value.set(
-            (clientX / size.width)  *  2 - 1,
-            -(clientY / size.height) *  2 + 1,
-        );
-    };
-
     return (
-        <mesh onPointerMove={handleMouseMove}>
+        <mesh>
             <planeGeometry args={[2, 2]} />
-            <shaderMaterial vertexShader={vertexShader}
-                            fragmentShader={fragmentShader}
-                            uniforms={uniforms}
-                            depthWrite={false}/>
+            <shaderMaterial
+                vertexShader={vertexShader}
+                fragmentShader={fragmentShader}
+                uniforms={uniforms}
+                depthWrite={false}
+            />
         </mesh>
     );
 }
