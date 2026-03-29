@@ -9,9 +9,9 @@ export default function Mesh() {
     const { size } = useThree();
 
     const uniforms = useMemo(() => ({
-        uTime:       { value: 0 },
+        uTime: { value: 0 },
         uResolution: { value: new THREE.Vector2(size.width, size.height) },
-        uMouse:      { value: new THREE.Vector2(0, 0) },
+        uMouse: { value: new THREE.Vector2(0, 0) },
     }), []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const mouseTarget = useMemo(() => new THREE.Vector2(0, 0), []);
