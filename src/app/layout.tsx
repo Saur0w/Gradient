@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
 import Header from "@/components/Header";
-import Theme from "@/components/Theme";
-
 
 export const metadata: Metadata = {
   title: "Saurow",
-  description: "~@saur0w(GitHub) X(@sauroww)",
+  description: "~@saur0w(GitHub) @sauroww(X)",
 };
 
 export default function RootLayout({
@@ -16,12 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body>
-      <Theme>
-          <Header />
-          {children}
-      </Theme>
+      <Header />
+        {children}
       </body>
     </html>
   );
